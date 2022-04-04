@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.encore.demo.repository.Consumer_rateDao;
-import com.encore.demo.vo.Consumer_rate;
+import com.encore.demo.repository.ConsumerRateDao;
+import com.encore.demo.vo.ConsumerRate;
 import com.encore.demo.vo.Member;
 import com.encore.demo.vo.Restaurant;
 
 @Service
-public class Consumer_rateService {
+public class ConsumerRateService {
 	@Autowired
-	private Consumer_rateDao dao;
+	private ConsumerRateDao dao;
 	
 	// 후기 작성
-	public Consumer_rate saveConsumer_rate(Consumer_rate c) {
+	public ConsumerRate saveConsumerRate(ConsumerRate c) {
 		return dao.save(c);
 	}
 	// 가게별 전체 후기 목록
@@ -28,44 +28,44 @@ public class Consumer_rateService {
 	
 	// 가게별 후기목록
 	// 날짜 오름차순
-	public ArrayList<Consumer_rate> getByRestaurantOrderByWdate(Restaurant restaurant) {
+	public ArrayList<ConsumerRate> getByRestaurantOrderByWdate(Restaurant restaurant) {
 		return dao.findByRestaurantOrderByWdate(restaurant);
 	}
 	
 	// 날짜 내림차순
-	public ArrayList<Consumer_rate> getByRestaurantOrderByWdateDesc(Restaurant restaurant) {
+	public ArrayList<ConsumerRate> getByRestaurantOrderByWdateDesc(Restaurant restaurant) {
 		return dao.findByRestaurantOrderByWdateDesc(restaurant);
 	}
 	
 	// 평점 오름차순
-	public ArrayList<Consumer_rate> getByRestaurantOrderByRate(Restaurant restaurant) {
+	public ArrayList<ConsumerRate> getByRestaurantOrderByRate(Restaurant restaurant) {
 		return dao.findByRestaurantOrderByRate(restaurant);
 	}
 	
 	// 평점 내림차순
-	public ArrayList<Consumer_rate> getByRestaurantOrderByRateDesc(Restaurant restaurant) {
+	public ArrayList<ConsumerRate> getByRestaurantOrderByRateDesc(Restaurant restaurant) {
 		return dao.findByRestaurantOrderByRateDesc(restaurant);
 	}
 	
 	// 아이디로 검색
-	public ArrayList<Consumer_rate> getById(Member id) {
+	public ArrayList<ConsumerRate> getById(Member id) {
 		return dao.findById(id);
 	}
 	
-	public void delConsumer_rate(int rev_num) {
+	public void delConsumerRate(int rev_num) {
 		dao.deleteById(rev_num);
 	}
 	
-	public Consumer_rate getConsumer_rate(int rev_num) {
+	public ConsumerRate getConsumerRate(int rev_num) {
 		return dao.findById(rev_num).orElse(null);
 	}
 	
 	//평점 평균 구하는 기능
 	public float getAvgByRestaurant(Restaurant restaurant) {
-		ArrayList<Consumer_rate> rates = dao.findByRestaurantOrderByRate(restaurant);
+		ArrayList<ConsumerRate> rates = dao.findByRestaurantOrderByRate(restaurant);
 		int cnt = rates.size();
 		float sum = 0;
-		for(Consumer_rate r: rates) {
+		for(ConsumerRate r: rates) {
 			sum += r.getRate();
 		}
 		return sum/cnt;
