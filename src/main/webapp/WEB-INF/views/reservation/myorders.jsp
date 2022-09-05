@@ -22,17 +22,22 @@
 	rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
+
+
 function rate(rev_num, restaurant_id) {
 	location.href = "/consumer_rate/write/" + rev_num;
 }
+
 
 function edit(rev_num){
 	location.href = "/reservation/edit/" + rev_num;	
 }
 
+
 function del(rev_num){
 	location.href = "/reservation/del/" + rev_num;	
 }
+
 
 function finddate(){
 	let date1 = document.getElementById( 'date1' ).value;

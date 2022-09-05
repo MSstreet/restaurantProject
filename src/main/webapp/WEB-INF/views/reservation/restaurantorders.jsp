@@ -137,22 +137,31 @@ function findname(restaurant_id){
 						</div>
 				<div class="myorders-wrapper">
 				<c:if test="${empty list}">
+				
 				<h2>등록된 예약이 없습니다.</h2>
+				
 				</c:if>
+				
 				<c:if test="${not empty list }">
 				<div class="myorders-search">
+				
 				<form action="/reservation/${restaurant_id}/finddayrestaurantorders" method="get" onsubmit="finddate(${restaurant_id});return false;">
 				DATE : <input type="date" id="date1" name="day">
 				<input type="submit" class="myorders-btn" value="SEARCH BY DATE" >
 				</form> </div> 
+				
 				<div class="myorders-search">
+				
 				<form action="/reservation/${restaurant_id}/findnametoid" method="post" onsubmit="findname(${restaurant_id});return false;">
+				
 				NAME :  <input type="text" id="name1" name="name">
 				<input type="submit" class="myorders-btn" value="SEARCH BY NAME">
 				</form> </div>
 				
 				<div class="myorders-list">
+				
 						<table class="table custom-table">
+						
 						<thead>
 							<tr class="myorders-list-th">
 								<th scope="col">NO.</th>
@@ -162,6 +171,7 @@ function findname(restaurant_id){
 								<th scope="col">PEOPLE</th>
 							</tr>
 						</thead>
+						
 						<tbody>
 							<c:forEach var="r" items="${list }">
 								<tr scope="row">
@@ -170,6 +180,7 @@ function findname(restaurant_id){
 								</tr>
 							</c:forEach>
 						</tbody>
+						
 						</table></div>
 				</c:if>
 				

@@ -7,20 +7,25 @@
 <title>Insert title here</title>
 <link rel="shortcut icon" type="image/png"
 	href="${pageContext.request.contextPath}/resources/img/icon1.png">
+	
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
 	integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
 	crossorigin="anonymous">
+	
 <link
 	href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700"
 	rel="stylesheet">
+	
 <link
 	href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
 	rel="stylesheet">
+	
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet" type="text/css">
 
 </head>
+
 <body>
 
 	<!-- navbar  -->
@@ -81,6 +86,7 @@
 	</div>
 	<!-- end of navbar  -->
 
+
 	<!-- myorders -->
 	<section class="myorders">
 	
@@ -91,6 +97,7 @@
 				<img
 					src="${pageContext.request.contextPath}/resources/img/icon1.png"
 					width="80">
+					
 			</div>
 			<h3 class="service-heading">This is your place</h3>
 		</div>
@@ -107,6 +114,7 @@
 				<div class="underline">
 						<div class="myorders-underline"></div>
 						</div>
+				
 				<div class="myorders-wrapper">
 				
 				<form action="/reservation/add" method="post" enctype="multipart/form-data">

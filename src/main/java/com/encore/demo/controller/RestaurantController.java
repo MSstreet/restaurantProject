@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.encore.demo.service.ConsumerRateService;
+import com.encore.demo.service.Consumer_rateService;
 import com.encore.demo.service.MenuService;
 import com.encore.demo.service.RestaurantService;
 import com.encore.demo.vo.Menu;
@@ -38,7 +38,7 @@ public class RestaurantController {
 	private MenuService service1;
 	
 	@Autowired
-	private ConsumerRateService service2;
+	private Consumer_rateService service2;
 	
 	
 	@GetMapping("/detail/{restaurant_id}")
@@ -49,14 +49,13 @@ public class RestaurantController {
 		return jpath;
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - 1.ï¿½ï¿½ï¿½ï¿½ 2.ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//°¡°Ô Á¤º¸ »ó¼¼ÆäÀÌÁö - 1.À¯Àú 2.°¡°Ô Á¡ÁÖ
 	@GetMapping("/detail/{type}/{restaurant_id}")
-	public String detail(@PathVariable("type") int type, @PathVariable("restaurant_id")int num, Map map, Map map1) {
+	public String detail(@PathVariable("type") int type, @PathVariable("restaurant_id")int num, Map map, Map map1,Map map2) {
 		//ArrayList<Restaurant> list1 = service.getAll();
 		Restaurant r = service.getByRestaurant_id(num); 
 		ArrayList<Menu> list = service1.getByRestaurantId(r);	
-		float avg =  service2.getAvgByRestaurant(r);
-		r.setConsumerRate(avg);
+		r.setComsumer_rate(service2.getAvgByRestaurant(r));
 		map.put("r", r);
 		map1.put("list", list);
 		//map2.put("list1", list1);
@@ -76,7 +75,7 @@ public class RestaurantController {
 		HttpHeaders header = new HttpHeaders();
 		ResponseEntity<byte[]> result = null;
 		try {
-			header.add("Content-Type", Files.probeContentType(f.toPath()));// ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+			header.add("Content-Type", Files.probeContentType(f.toPath()));// ¸¶ÀÓÅ¸ÀÔ
 			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(f), header, HttpStatus.OK);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -102,11 +101,11 @@ public class RestaurantController {
 	
 	
 	
-	//ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
+	//¾÷ÁÖ - °¡°Ô ±Û µî·Ï Æû
 	@GetMapping("/write")
 	public void writeForm() {}
 	
-	//ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
+	//¾÷ÁÖ - °¡°Ô ±Û µî·Ï ¿Ï·á
 	@PostMapping("/write")
 	public String write(Restaurant r) {
 		Restaurant r2 = service.saveRestaurant(r);
@@ -129,7 +128,7 @@ public class RestaurantController {
 		return "redirect:/member/main/2";
 	}
 	
-	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// °¡°Ô »èÁ¦
 	@GetMapping("/del/{restaurant_id}")
 	public String del(@PathVariable("restaurant_id")int restaurant_id) {
 		service.delRestaurant(restaurant_id);
@@ -138,14 +137,14 @@ public class RestaurantController {
 
 
 		
-	// ï¿½Ö¼ï¿½+Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+	// ÁÖ¼Ò+Ä«Å×°í¸®·Î °Ë»ö
 		@RequestMapping("/getByAddrAndCategory")
 		public String getByAddrAndCategory(String addr,String category, String restauranttype, String menutype, Map map) {
 			ArrayList<Restaurant> list = service.getByAddrAndCategory(addr, category, restauranttype);
 			map.put("list", list);
 			return "member/index";
 		}
-	// ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+	// ¸Þ´º·Î °Ë»ö
 	
 	
 	

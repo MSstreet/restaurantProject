@@ -26,7 +26,6 @@
 </head>
 <body>
 
-
 <!-- 	<!-- navbar  --> -->
 <!-- 	<div class="navbar"> -->
 
@@ -126,19 +125,14 @@
 					</thead>
 					
 				</table>
-				<div>
-					<c:if test="${empty list1}">
-					등록된 가게가 없습니다.
-					</c:if>
-							<c:if test="${not empty list1 }">
-							<c:forEach var="m" items="${list1 }">
-									<tr></tr>
-									<tr><th>사진</th><td><img src="/menu/readimg/${m.img_path }" width=200 height="200"></td></tr>
-									<tr><th>메뉴 이름</th><td><input value="${m.mname }"  readonly  class="myorders-input"></td></tr><br>
-									<tr><th>가격</th><td><input value="${m.price }"  readonly  class="myorders-input"></td></tr><br>
-							</c:forEach>
-							</c:if>
-				</div>
+				<table>
+					<c:forEach var="m" items="${list }">
+							<tr></tr>
+							<tr><th>사진</th><td><img src="/menu/readimg/${m.img_path }" width=200 height="200"></td></tr>
+							<tr><th>메뉴 이름</th><td><input value="${m.mname }"  readonly  class="myorders-input"></td></tr><br>
+							<tr><th>가격</th><td><input value="${m.price }"  readonly  class="myorders-input"></td></tr><br>
+					</c:forEach>
+				</table>
 			
 			<div class = detail_c-link>
 			<td><a href="/reservation/add/${r.restaurant_id}">예약하기</a></td>

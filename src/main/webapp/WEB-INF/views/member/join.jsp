@@ -8,7 +8,47 @@
 <script type="text/javascript" src="httpRequest.js"></script>
 <script type="text/javascript">
 
+function checkValue()
+{
+    var form = document.userInfo;
 
+//     if(!form.id.value){
+//         alert("아이디를 입력하세요.");
+//         return false;
+//     }
+    
+    if(form.idDuplication.value != "idCheck"){
+        alert("아이디 중복체크를 해주세요.");
+        return false;
+    }
+
+}
+
+// 아이디 중복체크 화면open
+function openIdChk(){
+
+    window.name = "parentForm";
+    window.open("member/IdCheckForm.jsp",
+            "chkForm", "width=500, height=300, resizable = no, scrollbars = no");    
+}
+
+function inputIdChk(){
+    document.userInfo.idDuplication.value ="idUncheck";
+}
+
+// var checkFirst = false;
+// var lastKeyword = '';
+// var loopSendKeyword = false;
+
+// function checkId() {
+// 	  if (checkFirst == false) {	
+// 	   loopSendKeyword = true;
+// 	   setTimeout("sendId();", 500);//0.5초 후에 sendKeyword()함수 실행
+// 	   //loopSendKeyword = true;
+// 	  }
+// 	  checkFirst = true;
+// 	 }
+	 
 function checkPwd(){
 	  var f1 = document.forms[1]; 
 	  var pw1 = f1.pwd.value;
@@ -23,17 +63,51 @@ function checkPwd(){
 	  }	  
 	 }
 
-function checkMsg(){
-	let m1 = document.forms[1];
-	let id1 = m1.id.value;
-	let checkM = document.getElementById('checkMsg');
-	if(id1 ===""){
-		checkM.style.display = 'block';
-	}else{
-		checkM.style.display = 'none';		
-	}
-
-	
+// function sendId() {
+// 	  if (loopSendKeyword == false) return;
+	  
+// 	  var keyword = document.search.id.value;
+	  
+// 	  if (keyword == '') 
+// 	  {
+// 	   		lastKeyword = '';
+// 	   		document.getElementById('checkMsg').style.color = "black";
+// 	   		document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요.";
+// 	  }
+// 	  else if (keyword != lastKeyword) 
+// 	  {
+// 	  		lastKeyword = keyword;
+	   
+// 			if (keyword != '') 
+// 			{
+// 				var params = "id="+encodeURIComponent(keyword);
+// 				sendRequest("id_check.jsp", params, displayResult, 'POST');
+// 	   		} 
+// 		else 
+// 			{
+// 	   		}
+// 	  	}
+// 	 	setTimeout("sendId();", 500);
+// 	 }
+	 
+// function displayResult() {
+// 	  if (httpRequest.readyState == 4) {
+// 	   if (httpRequest.status == 200) {
+// 	    var resultText = httpRequest.responseText;
+// 	    var listView = document.getElementById('checkMsg');
+// 	    if(resultText==0){
+// 	     listView.innerHTML = "사용 할 수 있는 ID 입니다";
+// 	     listView.style.color = "blue";
+// 	    }else{
+// 	     listView.innerHTML = "이미 등록된 ID 입니다";
+// 	     listView.style.color = "red";
+// 	    }
+// 	   } else {
+// 	    alert("에러 발생: "+httpRequest.status);
+// 	   }
+// 	  }
+// 	 }
+	 
 	 
 </script>
 
@@ -71,7 +145,7 @@ function checkMsg(){
 			</label>
 
 			<div class="year">
-				
+				<p>2022/01/14</p>
 			</div>
 		</div>
 		<!-- end of sidebar -->
@@ -134,13 +208,8 @@ function checkMsg(){
 				<div class="big-underline"></div>
 			</div>
 				<form name = "search" action="/member/join" method="post">	<!-- (controller로)제출/action:제출경로/method:전송방식 -->
-					<p class="join-info">id :</p><input type="text" name="id" class="join-box" id="id" maxlength="50" onkeydown="checkMsg()">
-					<button type="button" class="join-checkbtn" onclick="openIdchk()">중복검사</button>
-					<input type="hidden" name="idDuplication" value="idUncheck">
-					
-					<!-- <img id="id_check_sucess" style="display: none;"> -->
+					<p class="join-info">id :</p><input type="text" name="id" class="join-box" id="id" maxlength="50" onkeydown="inputIdChk()"><br/>
 					<div id="checkMsg">아이디를 입력하세요.</div>
-					
 					<p class="join-info">암호 :</p><input type="password" class="join-box" name="pwd"><br/>
 					<p class="join-info">암호 확인 :</p><input type="password" class="join-box" name="pwd_check" onkeyup="checkPwd()"><br/>
 					<div id="checkPwd">동일한 암호를 입력하세요.</div>

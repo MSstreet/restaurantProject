@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.encore.demo.service.ConsumerRateService;
+import com.encore.demo.service.Consumer_rateService;
 import com.encore.demo.service.MemberService;
 import com.encore.demo.service.ReservationService;
 import com.encore.demo.service.RestaurantService;
-import com.encore.demo.vo.ConsumerRate;
+import com.encore.demo.vo.Consumer_rate;
 import com.encore.demo.vo.Member;
 import com.encore.demo.vo.Reservation;
 import com.encore.demo.vo.Restaurant;
 
 @Controller
 @RequestMapping("/consumer_rate")
-public class ConsumerRateController {
+public class Consumer_rateController {
 	
 	@Autowired
-	private ConsumerRateService service;
+	private Consumer_rateService service;
 	
 	@Autowired
 	private RestaurantService service1;
@@ -57,18 +57,18 @@ public class ConsumerRateController {
 	}
 	
 	@PostMapping("/write")
-	public String write(HttpSession session, ConsumerRate c) {
-		ConsumerRate c1 = service.saveConsumerRate(c);
+	public String write(HttpSession session, Consumer_rate c) {
+		Consumer_rate c1 = service.saveConsumer_rate(c);
 		String loginid = (String)session.getAttribute("loginid");
 		
 		MultipartFile file = c.getFile();
 		String ori_fname = file.getOriginalFilename();
 		int idxOfLastDot = ori_fname.lastIndexOf(".");
-		String fname = c1.getCNum() + ori_fname.substring(idxOfLastDot);
+		String fname = c1.getC_num() + ori_fname.substring(idxOfLastDot);
 		try {
 			file.transferTo(new File(path + fname));
 			c1.setC_img(fname);
-			service.saveConsumerRate(c1);
+			service.saveConsumer_rate(c1);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,15 +97,15 @@ public class ConsumerRateController {
 	@GetMapping("/list/{restaurant_id}")
 	public String list(@PathVariable("restaurant_id") int restaurant_id, Map map) {
 		Restaurant r = service1.getByRestaurant_id(restaurant_id);
-		ArrayList<ConsumerRate> list = service.getByRestaurantOrderByWdateDesc(r);
+		ArrayList<Consumer_rate> list = service.getByRestaurantOrderByWdateDesc(r);
 		map.put("list", list);
-		return "ConsumerRate/list";
+		return "consumer_rate/list";
 	}
 	
 	@GetMapping("/list/{restaurant_id}/rate")
 	public String ratelist(@PathVariable("restaurant_id") int restaurant_id, Map map) {
 		Restaurant r = service1.getByRestaurant_id(restaurant_id);
-		ArrayList<ConsumerRate> list = service.getByRestaurantOrderByWdateDesc(r);
+		ArrayList<Consumer_rate> list = service.getByRestaurantOrderByWdateDesc(r);
 		map.put("list", list);
 		return "consumer_rate/list";
 	}
@@ -114,29 +114,29 @@ public class ConsumerRateController {
 	public String list(HttpSession session, Map map) {
 		String loginid = (String)session.getAttribute("loginid");
 		Member id = service3.getMember(loginid);
-		ArrayList<ConsumerRate> list = service.getById(id);
+		ArrayList<Consumer_rate> list = service.getById(id);
 		map.put("list", list);
 		return "consumer_rate/mylist";
 	}
 	
 	@GetMapping("/del/{c_num}")
 	public String del(@PathVariable("c_num") int c_num) {
-		service.delConsumerRate(c_num);
+		service.delConsumer_rate(c_num);
 		return "redirect:/consumer_rate/mylist";
 	}
 	
 	@GetMapping("/edit/{c_num}")
 	public String editForm(@PathVariable("c_num") int c_num, HttpSession session, Map map) {
-		ConsumerRate c = service.getConsumerRate(c_num);
+		Consumer_rate c = service.getConsumer_rate(c_num);
 		map.put("c", c);
 		return "consumer_rate/edit";
 	}
 	
 	@PostMapping("/edit")
-	public String edit(HttpSession session, ConsumerRate c) {
-		ConsumerRate cc = service.getConsumerRate(c.getCNum());
+	public String edit(HttpSession session, Consumer_rate c) {
+		Consumer_rate cc = service.getConsumer_rate(c.getC_num());
 		c.setWdate(cc.getWdate());
-		service.saveConsumerRate(c);
+		service.saveConsumer_rate(c);
 		String loginid = (String)session.getAttribute("loginid");
 		return "redirect:/consumer_rate/mylist";
 	}

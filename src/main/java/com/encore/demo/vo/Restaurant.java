@@ -54,7 +54,7 @@ public class Restaurant {
 	
 	private String contents;
 	
-	private float consumerRate; //consumer_rate
+	private float comsumer_rate;
 	
 	private String r_img;
 	
